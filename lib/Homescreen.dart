@@ -3,6 +3,8 @@ import 'AddNewTask.dart';
 import 'constants.dart';
 import 'TaskListView.dart';
 import 'Task.dart';
+import 'package:provider/provider.dart';
+import 'TaskData.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -17,10 +19,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  List<Task> task = [
-    Task(name: 'Task 1'),
-    Task(name: 'Task 2'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Icon(Icons.add, color: Colors.white,),
         backgroundColor: Colors.blue,
         onPressed: (){
-          showModalBottomSheet(context: context, builder: (BuildContext context) =>
-              NewTaskAdder( (taskName){
-                setState(() {
-                  task.add(Task(name: taskName),
-                  );
-                },
-                );
-                Navigator.pop(context);
-              }
-              ),);
+         showModalBottomSheet(context: context, builder:(BuildContext context) => NewTaskAdder(),
+         );
         },
         elevation: 5,
       ),
@@ -61,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Text('Todoey',
                     style: kTodoeyTextStyle,
                   ),
-                  Text('${task.length} Tasks',
+                  Text('${Provider.of<TaskData>(context).taskNumber} Tasks',
                     style: TextStyle(
                       color: Colors.white,
                     ),),
@@ -74,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               decoration: kTaskViewContainerStyle,
-              child: TaskListView(task),
+              child: TaskListView(),
             ),
           ),
         ],

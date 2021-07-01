@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/constants.dart';
+import 'package:provider/provider.dart';
+import 'TaskData.dart';
 
 String taskName;
 
 class NewTaskAdder extends StatelessWidget {
-  NewTaskAdder(this.addTaskScreen);
-
-  final Function addTaskScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,8 @@ class NewTaskAdder extends StatelessWidget {
                 SizedBox(height: 10.0),
                 TextButton(
                   onPressed: (){
-                      addTaskScreen(taskName);
+                    Provider.of<TaskData>(context, listen: false).addTask(taskName);
+                    Navigator.pop(context);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

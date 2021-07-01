@@ -9,4 +9,5 @@ class Task {
   void changeDone(){
     isDone = !isDone;
   }
+
 }
